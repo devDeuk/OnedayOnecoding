@@ -1,5 +1,10 @@
 package com.oneday.week1;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -26,38 +31,62 @@ public class D0809_Fibonacci {
 	 4. 추출한 짝을수를 더한다.
 	 5. 결과를 노출한다.
 	 */
-
-
-	
+    
 	public static void main(String[] args) throws Exception{
-
 		
-		//1.input 값받기 
-		System.out.print("숫자를 입력해주세요 : ");
-		Scanner input1 = new Scanner(System.in);
-		int inpNum = input1.nextInt();
+		String input= "";
+		System.out.print("숫자를 입력하세요 : ");
+		try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
+		    input = br.readLine();
 		
+		} catch (IOException e) {
+		    e.printStackTrace();
+		}
+		int number1 = 0;
+		int number2 = 0;
 		
-		System.out.println("피보나츠 배열을 생성중입니다.");
-		Thread.sleep(1000);
+		//2. input 받은 값에 피보나치 배열을 만든다.
+		List<Integer> fibLst = new ArrayList<Integer>();
 		
-
+		if(Integer.parseInt(input) != 0){
+		    while(number1 <= Integer.parseInt(input)){
+		    	
+		        if(number1 == 0){
+		        	fibLst.add(number1);
+		            number1 ++;
+		            fibLst.add(number1);
+		        }else{
+		        	int num = number1;
+		        	number1 = number1 + number2;
+				    if(!(number1 >Integer.parseInt(input))){
+				       fibLst.add(number1);
+				       number2 = num;
+				    }
+				}
+		       
+			}
+		}else{
+			fibLst.add(number1);
+		}
 		
+		//4. 짝수만 추출한다.
+		List<Integer> fibEvenLst = new ArrayList<Integer>();
 		
+		int evenNumSum = 0;
+		for(int n:fibLst){
+			System.out.print(n + " ");
+			
+			if(n%2 == 0) {
+				fibEvenLst.add(n);
+				evenNumSum+=n; 
+			}
+		}
 		
-		
-		System.out.println("피보나츠 짝수를 추출중입니다.");
-		Thread.sleep(1000);
-		
-		System.out.println("피보나츠 짝수에서 추출한 합계를 계산중입니다.");
-		
-		
-		
-		
-		
-		
-		
-	}
-
-	
+		System.out.println(" ");
+		System.out.println("짝수 합계는 " + evenNumSum);
+		for(int z:fibEvenLst) {
+			System.out.print(z + "+");
+		}
+		System.out.print("=" + evenNumSum);
+	}//main		
 }
